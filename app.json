@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "online-pharmacy",
+    "slug": "online-pharmacy",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0C07F1"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "permissions": ["INTERNET"],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0C07F1"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e1835b2-67c6-4698-86a2-d6faef12ceaa"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5e1835b2-67c6-4698-86a2-d6faef12ceaa"
+    }
+  }
+}
