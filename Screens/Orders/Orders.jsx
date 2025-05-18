@@ -9,6 +9,7 @@ import {
   StatusBar,
   Image,
   Alert,
+  RefreshControl,
 } from "react-native";
 import { SIZES } from "../../Constants/Theme";
 import { AntDesign } from "@expo/vector-icons";
@@ -16,6 +17,7 @@ import axiosInstance from "../../utils/axiosInstance";
 
 const Orders = ({ navigation }) => {
   const [orders, setOrders] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -35,6 +37,13 @@ const Orders = ({ navigation }) => {
     getOrders();
   }, []);
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
@@ -48,7 +57,12 @@ const Orders = ({ navigation }) => {
           </Pressable>
           <Text style={styles.ordersText}>My Orders</Text>
         </View>
-        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContent}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           {orders?.map((order) => (
             <View style={styles.orderContainer} key={order?._id}>
               <View style={styles.itemContainer}>

@@ -9,6 +9,7 @@ import {
   Pressable,
   ScrollView,
   Alert,
+  RefreshControl,
 } from "react-native";
 import { SIZES } from "../../Constants/Theme";
 import { Foundation } from "@expo/vector-icons";
@@ -21,6 +22,7 @@ import { useContext } from "react";
 
 const Product = ({ navigation }) => {
   const [product, setProduct] = useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const stars = [1, 2, 3, 4];
 
@@ -46,10 +48,21 @@ const Product = ({ navigation }) => {
     getProducts();
   }, []);
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={styles.itemsContainer}>
           <Pressable style={styles.arrowIconContainer}>
             <AntDesign

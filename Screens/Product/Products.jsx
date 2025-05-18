@@ -8,6 +8,7 @@ import {
   Pressable,
   Image,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { SIZES } from "../../Constants/Theme";
@@ -41,6 +42,7 @@ const Products = ({ navigation }) => {
 
   const [quantity, setQuantity] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const handleNavigate = (id, price) => {
     navigation.navigate("Product");
@@ -67,6 +69,13 @@ const Products = ({ navigation }) => {
       setQuantity(quantity);
     };
     getProfile();
+  }, []);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   }, []);
 
   return (
@@ -133,7 +142,12 @@ const Products = ({ navigation }) => {
             <Text style={styles.viewAllText}>View all</Text>
           </Pressable>
         </View>
-        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContent}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           <Card handleNavigate={(id, price) => handleNavigate(id, price)} />
         </ScrollView>
       </View>
